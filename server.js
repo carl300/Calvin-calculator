@@ -1,18 +1,5 @@
 const express = require('express');
 const app = express();
-const client = require('prom-client');
-
-// Create a Registry to register the metrics
-const register = new client.Registry();
-
-// Enable default metrics (CPU, memory, event loop, etc.)
-client.collectDefaultMetrics({ register });
-
-// Expose /metrics endpoint
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', register.contentType);
-  res.end(await register.metrics());
-});
 
 app.use(express.json());
 app.use(express.static('public'));
