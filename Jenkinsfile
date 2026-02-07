@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USER = "YOUR_DOCKERHUB_USERNAME"
+        DOCKERHUB_USER = "bamwood"
         IMAGE_NAME = "calvin-calculator"
     }
 
@@ -36,7 +36,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                    docker build -t $DOCKERHUB_USER/$IMAGE_NAME:latest .
+                    docker build -t $DOCKERHUB_USER/$IMAGE_NAME:latest calculator-app
                 '''
             }
         }
