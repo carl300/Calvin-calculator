@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calvin's Calculator</title>
+  <style>
+    body { font-family: Arial; max-width: 400px; margin: 40px auto; }
+    h1 { text-align: center; }
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; }
+    #result { font-size: 20px; margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Calvin's Calculator</h1>
+
+  <input id="a" type="number" placeholder="Enter first number">
+  <input id="b" type="number" placeholder="Enter second number">
+
+  <select id="operation">
+    <option value="add">Add (+)</option>
+    <option value="subtract">Subtract (-)</option>
+    <option value="multiply">Multiply (×)</option>
+    <option value="divide">Divide (÷)</option>
+  </select>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function calculate() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const operation = document.getElementById('operation').value;
+
+      const response = await fetch('/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ a, b, operation })
+      });
+
+      const data = await response.json();
+      document.getElementById('result').innerText =
+        "Result: " + data.result;
+    }
+  </script>
+</body>
+</html>
